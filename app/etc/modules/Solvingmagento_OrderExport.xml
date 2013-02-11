@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Solvingmagento_OrderExport>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Solvingmagento_OrderExport>
+    </modules>
+</config>
