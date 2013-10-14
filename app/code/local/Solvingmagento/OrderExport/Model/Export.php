@@ -47,9 +47,19 @@ class Solvingmagento_OrderExport_Model_Export
         }
         
         $data = $order->getData();
-        
         $xml = new SimpleXMLElement('<root/>');
-        array_walk_recursive(array_flip($data), array ($xml, 'addChild'));
+        $callback =
+            function ($value, $key) use (&$xml, &$callback) {
+                if ($value instanceof Varien_Object && is_array($value->getData())) {
+                    $value = $value->getData();
+                }
+                if (is_array($value)) {
+                    array_walk_recursive($value, $callback);
+                }
+                $xml->addChild($key, $value);
+            };
+
+        array_walk_recursive($data, $callback);
         
         file_put_contents(
             $dirPath. DS .$order->getIncrementId().'.xml', 
