@@ -49,7 +49,7 @@ class Solvingmagento_OrderExport_Model_Export
         $data = $order->getData();
         
         $xml = new SimpleXMLElement('<root/>');
-        array_walk_recursive($data, array ($xml, 'addChild'));
+        array_walk_recursive(array_flip($data), array ($xml, 'addChild'));
         
         file_put_contents(
             $dirPath. DS .$order->getIncrementId().'.xml', 
